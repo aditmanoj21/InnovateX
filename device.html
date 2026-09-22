@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sell a Device — InnovateX Trade-In</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="brand">Innovate<span>X</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="device.html" class="active">Sell a Device</a></li>
+        <li><a href="history.html">My Trade-Ins</a></li>
+        <li><a href="profile.html">Profile</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container page-section">
+    <div class="card" style="max-width: 640px; margin: 0 auto;">
+      <h1>Tell us about your device</h1>
+      <p class="subtitle">Step 1 of 3 — Device Information</p>
+
+      <form action="condition.html" method="GET">
+
+        <div class="field">
+          <label for="brand">Brand</label>
+          <select id="brand" name="brand" required>
+            <option value="">Select brand</option>
+            <option value="apple">Apple</option>
+            <option value="samsung">Samsung</option>
+            <option value="oneplus">OnePlus</option>
+            <option value="xiaomi">Xiaomi</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="model">Model</label>
+          <input type="text" id="model" name="model" placeholder="e.g. iPhone 13" required />
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="storage">Storage</label>
+            <select id="storage" name="storage" required>
+              <option value="">Select storage</option>
+              <option value="64gb">64 GB</option>
+              <option value="128gb">128 GB</option>
+              <option value="256gb">256 GB</option>
+              <option value="512gb">512 GB</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="year">Purchase Year</label>
+            <input type="number" id="year" name="year" min="2015" max="2026" placeholder="2023" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="price">Original Purchase Price (₹)</label>
+          <input type="number" id="price" name="price" min="0" step="500" placeholder="60000" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Continue to Condition Check</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      &copy; 2026 InnovateX Trade-In Platform — CA Project
+    </div>
+  </footer>
+
+</body>
+</html>

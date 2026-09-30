@@ -290,3 +290,278 @@ footer {
   .hero h1 { font-size: 1.9rem; }
   .navbar .container { flex-direction: column; align-items: flex-start; }
 }
+/* =========================================
+   CONDITION ASSESSMENT PAGE
+   ========================================= */
+
+.condition-page {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+
+/* ---------- PAGE HEADER ---------- */
+
+.condition-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.condition-header h1 {
+    margin-bottom: 8px;
+}
+
+.step-label {
+    margin: 0 0 8px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    opacity: 0.65;
+}
+
+.progress-info {
+    min-width: 110px;
+    padding: 14px 18px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    text-align: center;
+    background: #fff;
+}
+
+.progress-info span {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.progress-info small {
+    font-size: 12px;
+    opacity: 0.65;
+}
+
+
+/* ---------- ASSESSMENT GRID ---------- */
+
+.assessment-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+
+/* ---------- ASSESSMENT CARD ---------- */
+
+.assessment-card {
+    padding: 24px;
+    background: #fff;
+    border: 1px solid #e1e1e1;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+.assessment-title {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.assessment-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 38px;
+    height: 38px;
+
+    border-radius: 50%;
+
+    background: #eef6f5;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.assessment-title h2 {
+    margin: 0 0 4px;
+    font-size: 20px;
+}
+
+.assessment-title p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.65;
+}
+
+
+/* ---------- OPTIONS ---------- */
+
+.condition-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.condition-option {
+    position: relative;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    padding: 13px;
+
+    border: 1px solid #ddd;
+    border-radius: 9px;
+
+    background: #fff;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.condition-option:hover {
+    border-color: #2aa198;
+    background: #f7fbfa;
+    transform: translateY(-1px);
+}
+
+.condition-option:has(input:checked) {
+    border-color: #2aa198;
+    background: #eef8f6;
+}
+
+.condition-option input {
+    margin-top: 3px;
+    accent-color: #2aa198;
+}
+
+.option-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.option-content strong {
+    font-size: 14px;
+}
+
+.option-content small {
+    font-size: 12px;
+    line-height: 1.35;
+    opacity: 0.65;
+}
+
+
+/* ---------- REMARKS ---------- */
+
+.remarks-card {
+    margin-top: 20px;
+    padding: 24px;
+
+    background: #fff;
+    border: 1px solid #e1e1e1;
+    border-radius: 12px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+.remarks-card h2 {
+    margin: 0 0 5px;
+    font-size: 20px;
+}
+
+.remarks-card p {
+    margin: 0 0 15px;
+    font-size: 14px;
+    opacity: 0.65;
+}
+
+.remarks-card textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 13px;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.remarks-card textarea:focus {
+    outline: none;
+    border-color: #2aa198;
+}
+
+
+/* ---------- BUTTONS ---------- */
+
+.condition-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 24px;
+}
+
+
+/* =========================================
+   TABLET
+   ========================================= */
+
+@media (max-width: 850px) {
+
+    .condition-page {
+        max-width: 720px;
+    }
+
+    .assessment-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    .condition-header {
+        align-items: flex-start;
+    }
+
+    .progress-info {
+        display: none;
+    }
+
+    .assessment-card {
+        padding: 18px;
+    }
+
+    .condition-options {
+        grid-template-columns: 1fr;
+    }
+
+    .condition-actions {
+        flex-direction: column-reverse;
+        gap: 12px;
+    }
+
+    .condition-actions .btn {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+}

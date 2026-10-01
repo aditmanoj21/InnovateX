@@ -290,6 +290,12 @@ footer {
   .hero h1 { font-size: 1.9rem; }
   .navbar .container { flex-direction: column; align-items: flex-start; }
 }
+
+
+
+
+
+
 /* =========================================
    CONDITION ASSESSMENT PAGE
    ========================================= */
@@ -564,4 +570,128 @@ footer {
         text-align: center;
         box-sizing: border-box;
     }
+}
+
+
+
+
+
+
+
+
+/* =========================================
+   OFFER PAGE
+   ========================================= */
+
+.offer-page {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.offer-header {
+    margin-bottom: 25px;
+}
+
+.offer-card {
+    background: #fff;
+    border: 1px solid #e1e1e1;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+.offer-card h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.offer-details {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.offer-details span {
+    display: block;
+    font-size: 13px;
+    opacity: 0.6;
+    margin-bottom: 5px;
+}
+
+.offer-details strong {
+    font-size: 15px;
+}
+
+.valuation-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+}
+
+.valuation-row strong {
+    font-weight: 600;
+}
+
+.offer-card hr {
+    border: 0;
+    border-top: 1px solid #e5e5e5;
+    margin: 10px 0;
+}
+
+.final-value {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+}
+
+.final-value span {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.final-value strong {
+    font-size: 28px;
+}
+
+.offer-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+@media (max-width: 700px) {
+
+    .offer-details {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .offer-actions {
+        flex-direction: column;
+    }
+}
+.offer-decision-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-reject {
+    background: #ffffff;
+    color: #d9534f;
+    border: 1px solid #d9534f;
+}
+
+.btn-reject:hover {
+    background: #d9534f;
+    color: #ffffff;
+}
+
+@media (max-width: 600px) {
+
+    .offer-decision-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
 }

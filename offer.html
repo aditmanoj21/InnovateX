@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Trade-In Offer | InnovateX Trade-In</title>
+
+    <link rel="stylesheet" href="css/style.css">
+     <link rel="icon" href="assets/ChatGPT Image Oct 1, 2026, 02_36_24 PM.png">
+
+</head>
+
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="container">
+
+            <a href="index.html" class="logo">
+                InnovateX Trade-In
+            </a>
+
+            <div class="nav-links">
+
+                <a href="index.html">Home</a>
+
+                <a href="device.html">Device</a>
+
+                <a href="history.html">History</a>
+
+                <a href="profile.html">Profile</a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- OFFER -->
+
+    <main class="container page-section">
+
+        <div class="offer-page">
+
+            <div class="offer-header">
+
+                <p class="step-label">
+                    STEP 3 OF 3
+                </p>
+
+                <h1>
+                    Your Trade-In Offer
+                </h1>
+
+                <p class="subtitle">
+                    We've assessed your device and calculated an estimated
+                    trade-in value.
+                </p>
+
+            </div>
+
+
+            <!-- DEVICE INFORMATION -->
+
+            <div class="offer-card">
+
+                <h2>Device Details</h2>
+
+                <div class="offer-details">
+
+                    <div>
+                        <span>Brand</span>
+                        <strong id="offerBrand">-</strong>
+                    </div>
+
+                    <div>
+                        <span>Model</span>
+                        <strong id="offerModel">-</strong>
+                    </div>
+
+                    <div>
+                        <span>Storage</span>
+                        <strong id="offerStorage">-</strong>
+                    </div>
+
+                    <div>
+                        <span>Device Age</span>
+                        <strong id="offerAge">-</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- VALUATION -->
+
+            <div class="offer-card">
+
+                <h2>Valuation Summary</h2>
+
+                <div class="valuation-row">
+                    <span>Original Purchase Price</span>
+                    <strong id="originalPrice">₹0</strong>
+                </div>
+
+                <div class="valuation-row">
+                    <span>Age Adjustment</span>
+                    <strong id="ageDeduction">-₹0</strong>
+                </div>
+
+                <div class="valuation-row">
+                    <span>Condition Adjustment</span>
+                    <strong id="conditionDeduction">-₹0</strong>
+                </div>
+
+                <hr>
+
+                <div class="final-value">
+
+                    <span>Estimated Trade-In Value</span>
+
+                    <strong id="finalValue">
+                        ₹0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div class="offer-actions">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    onclick="window.location.href='condition.html'"
+                >
+                    ← Review Condition
+                </button>
+
+
+                <div class="offer-decision-buttons">
+
+                    <button
+                        type="button"
+                        class="btn btn-reject"
+                        id="rejectOffer"
+                    >
+                        Reject Offer
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        id="acceptOffer"
+                    >
+                        Accept Offer
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- OFFER MESSAGE -->
+
+            <p id="offerMessage"></p>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="container">
+
+            <p>
+                InnovateX Trade-In
+            </p>
+
+        </div>
+
+    </footer>
+
+
+
+    <script>
+
+    /*
+       Retrieve valuation calculated by valuation.js
+    */
+
+    const savedData =
+        sessionStorage.getItem("tradeInValuation");
+
+    if (!savedData) {
+
+        alert("No valuation information was found.");
+
+        window.location.href = "device.html";
+
+    }
+
+    const valuation =
+        JSON.parse(savedData);
+
+
+    /*
+       Display device information
+    */
+
+    document.getElementById("offerBrand").textContent =
+        valuation.brand || "-";
+
+    document.getElementById("offerModel").textContent =
+        valuation.model || "-";
+
+    document.getElementById("offerStorage").textContent =
+        valuation.storage || "-";
+
+    document.getElementById("offerAge").textContent =
+        (valuation.deviceAge || 0) + " years";
+
+
+    /*
+       Display price information
+    */
+
+    const formatCurrency = (amount) => {
+
+        return "₹" +
+            Math.round(amount || 0)
+                .toLocaleString("en-IN");
+
+    };
+
+
+    document.getElementById("originalPrice").textContent =
+        formatCurrency(valuation.originalPrice);
+
+
+    document.getElementById("ageDeduction").textContent =
+        "-" + formatCurrency(valuation.ageDeduction);
+
+
+    const conditionDeduction =
+        (valuation.screenDeduction || 0) +
+        (valuation.bodyDeduction || 0) +
+        (valuation.batteryDeduction || 0) +
+        (valuation.functionalityDeduction || 0);
+
+
+    document.getElementById("conditionDeduction").textContent =
+        "-" + formatCurrency(conditionDeduction);
+
+
+    document.getElementById("finalValue").textContent =
+        formatCurrency(valuation.finalValue);
+
+
+    /*
+       Determine overall condition
+    */
+
+    function getOverallCondition() {
+
+        const scores = {
+
+            excellent: 4,
+            good: 3,
+            fair: 2,
+            poor: 1,
+
+            "90plus": 4,
+            "80-89": 3,
+            "70-79": 2,
+            below70: 1,
+
+            "fully-functional": 4,
+            "minor-issues": 3,
+            "major-issues": 2,
+            "not-functional": 1
+
+        };
+
+
+        const conditions = [
+
+            valuation.screen,
+            valuation.body,
+            valuation.battery,
+            valuation.functionality
+
+        ];
+
+
+        const validScores = conditions
+
+            .map(function(condition) {
+                return scores[condition];
+            })
+
+            .filter(function(score) {
+                return score !== undefined;
+            });
+
+
+        if (validScores.length === 0) {
+            return "Assessed";
+        }
+
+
+        const lowestScore =
+            Math.min(...validScores);
+
+
+        if (lowestScore === 4) {
+            return "Excellent";
+        }
+
+        if (lowestScore === 3) {
+            return "Good";
+        }
+
+        if (lowestScore === 2) {
+            return "Fair";
+        }
+
+        return "Poor";
+
+    }
+
+
+    /*
+       Save trade-in to History
+    */
+
+    function saveToHistory(status) {
+
+        const history =
+            JSON.parse(
+                localStorage.getItem("tradeInHistory")
+            ) || [];
+
+
+        const record = {
+
+            brand:
+                valuation.brand || "-",
+
+            model:
+                valuation.model || "-",
+
+            storage:
+                valuation.storage || "-",
+
+            condition:
+                getOverallCondition(),
+
+            originalPrice:
+                valuation.originalPrice || 0,
+
+            finalValue:
+                valuation.finalValue || 0,
+
+            status:
+                status,
+
+            date:
+                new Date().toLocaleDateString("en-IN")
+
+        };
+
+
+        history.push(record);
+
+
+        localStorage.setItem(
+            "tradeInHistory",
+            JSON.stringify(history)
+        );
+
+    }
+
+
+    /*
+       Accept Offer
+    */
+
+    document
+        .getElementById("acceptOffer")
+        .addEventListener("click", function() {
+
+            saveToHistory("Accepted");
+
+            const message =
+                document.getElementById("offerMessage");
+
+            message.textContent =
+                "✓ Offer accepted successfully.";
+
+            message.style.marginTop = "20px";
+            message.style.fontWeight = "600";
+            message.style.color = "#16805c";
+
+        });
+
+
+    /*
+       Reject Offer
+    */
+
+    document
+        .getElementById("rejectOffer")
+        .addEventListener("click", function() {
+
+            saveToHistory("Rejected");
+
+            const message =
+                document.getElementById("offerMessage");
+
+            message.textContent =
+                "Offer rejected.";
+
+            message.style.marginTop = "20px";
+            message.style.fontWeight = "600";
+            message.style.color = "#d9534f";
+
+        });
+
+</script>
+
+
+    
+</body>
+
+</html>

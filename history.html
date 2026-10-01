@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+< lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Trade-Ins — InnovateX Trade-In</title>
   <link rel="stylesheet" href="css/style.css" />
+   <link rel="icon" href="assets/ChatGPT Image Oct 1, 2026, 02_36_24 PM.png">
 </head>
-<body>
+<>
 
   <nav class="navbar">
     <div class="container">
@@ -35,35 +36,8 @@
           <th>Status</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>12 Sep 2026</td>
-          <td>iPhone 13, 128GB</td>
-          <td>Good</td>
-          <td>₹37,800</td>
-          <td><span class="badge badge-accepted">Accepted</span></td>
-        </tr>
-        <tr>
-          <td>02 Aug 2026</td>
-          <td>Samsung Galaxy S22</td>
-          <td>Fair</td>
-          <td>₹28,500</td>
-          <td><span class="badge badge-pending">Pending</span></td>
-        </tr>
-        <tr>
-          <td>15 Jun 2026</td>
-          <td>OnePlus 9</td>
-          <td>Excellent</td>
-          <td>₹22,000</td>
-          <td><span class="badge badge-rejected">Rejected</span></td>
-        </tr>
-        <tr>
-          <td>03 Mar 2026</td>
-          <td>Xiaomi Redmi Note 11</td>
-          <td>Good</td>
-          <td>₹9,200</td>
-          <td><span class="badge badge-accepted">Accepted</span></td>
-        </tr>
+      <tbody id="historyBody">
+        
       </tbody>
     </table>
   </div>
@@ -73,6 +47,96 @@
       &copy; 2026 InnovateX Trade-In Platform — CA Project
     </div>
   </footer>
+
+<script>
+
+    const history =
+        JSON.parse(
+            localStorage.getItem("tradeInHistory")
+        ) || [];
+
+    const historyBody =
+        document.getElementById("historyBody");
+
+    history
+        .slice()
+        .reverse()
+        .forEach(function(record) {
+
+            const row = document.createElement("tr");
+
+            const dateCell = document.createElement("td");
+            dateCell.textContent = record.date || "-";
+
+            const deviceCell = document.createElement("td");
+            deviceCell.textContent =
+                `${record.brand || "-"} ${record.model || "-"}, ${record.storage || "-"}`;
+
+            const conditionCell = document.createElement("td");
+            conditionCell.textContent =
+                record.condition || "Assessed";
+
+            const offerCell = document.createElement("td");
+            offerCell.textContent =
+                "₹" +
+                Number(record.finalValue || 0)
+                    .toLocaleString("en-IN");
+
+            const statusCell = document.createElement("td");
+
+            const statusBadge = document.createElement("span");
+
+            statusBadge.textContent =
+                record.status || "Pending";
+
+            if (record.status === "Accepted") {
+
+                statusBadge.className =
+                    "badge badge-accepted";
+
+            } else if (record.status === "Rejected") {
+
+                statusBadge.className =
+                    "badge badge-rejected";
+
+            } else {
+
+                statusBadge.className =
+                    "badge badge-pending";
+            }
+
+            statusCell.appendChild(statusBadge);
+
+            row.appendChild(dateCell);
+            row.appendChild(deviceCell);
+            row.appendChild(conditionCell);
+            row.appendChild(offerCell);
+            row.appendChild(statusCell);
+
+             row.innerHTML = `
+            <td>${record.date || "-"}</td>
+            <td>${record.brand || "-"} ${record.model || "-"}, ${record.storage || "-"}</td>
+            <td>${record.condition || "Assessed"}</td>
+            <td>₹${Number(record.finalValue || 0).toLocaleString("en-IN")}</td>
+            <td>
+                <span class="badge ${
+                    record.status === "Accepted"
+                        ? "badge-accepted"
+                        : "badge-rejected"
+                }">
+                    ${record.status || "Pending"}
+                </span>
+            </td>
+        `;
+
+            historyBody.insertBefore(
+                row,
+                historyBody.firstChild
+            );
+
+        });
+
+</script>
 
 </body>
 </html>
